@@ -1,0 +1,23 @@
+body{
+    width: 1250px;
+    padding-top: 50px;
+    padding-bottom: 100px;
+}
+.gallery{
+    display :flex;
+    flex-wrap: wrap;
+}
+.photo-card{
+    width: 300px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+.search-form{
+    display: block;
+
+    margin-bottom: 50px;
+}
+.load-more{
+    display: block;
+    margin: 0 auto;
+}
