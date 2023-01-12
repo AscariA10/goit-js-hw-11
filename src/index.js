@@ -1,7 +1,6 @@
 import Notiflix from 'notiflix';
 
 import axios from 'axios';
-const axios = require('axios');
 
 const formInput = document.querySelector('#search-form');
 const galleryPlace = document.querySelector('.gallery');
