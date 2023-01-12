@@ -1,4 +1,6 @@
 import Notiflix from 'notiflix';
+// import axios, { isCancel, AxiosError } from 'axios';
+import axios from 'axios';
 const axios = require('axios');
 
 const formInput = document.querySelector('#search-form');
@@ -35,8 +37,14 @@ function onSubmit(event) {
    getImages(searchFor).then(({ hits, totalHits }) =>
       hits.map(element => {
          galleryPlace.insertAdjacentHTML('beforeend', galleryListRender(element));
-         loadMoreButton.style.display = 'block';
-         console.log(galleryPlace.children.length);
+         if (galleryPlace.children.length >= totalHits) {
+            loadMoreButton.style.display = 'none';
+            Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
+         } else {
+            loadMoreButton.style.display = 'block';
+         }
+
+         // console.log(galleryPlace.children.length);
          //  console.log(hits);
          //  console.log(totalHits);
       })
@@ -52,7 +60,7 @@ function onLoad() {
             loadMoreButton.style.display = 'none';
             Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
          }
-         console.log(galleryPlace.children.length);
+         // console.log(galleryPlace.children.length);
          //  console.log(hits);
          //  console.log(totalHits);
       })
@@ -63,10 +71,15 @@ async function getImages(input) {
    const myKey = '32683940-309b63abead1b8e1ecbca20b5';
    const perPage = 40;
 
-   const getResponse = await fetch(
+   const response = await axios.get(
       `https://pixabay.com/api/?key=${myKey}&q=${input}&image_type=photo&orientation=horizontal&safesearch=true&per_page=${perPage}&page=${page}`
    );
-   const parsedData = await getResponse.json();
+
+   // const getResponse = await fetch(
+   //    `https://pixabay.com/api/?key=${myKey}&q=${input}&image_type=photo&orientation=horizontal&safesearch=true&per_page=${perPage}&page=${page}`
+   // );
+   const parsedData = await response.data;
+
    return parsedData;
 }
 
